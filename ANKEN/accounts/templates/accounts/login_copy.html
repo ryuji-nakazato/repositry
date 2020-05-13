@@ -1,0 +1,38 @@
+<!--
+{% extends "accounts/base.html" %}
+{% load bootstrap4 %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="test.css">
+{% endblock extra_css %}
+
+{% block title %}ログイン{% endblock title %}
+
+{% block content %}
+<div class="text-center">
+    <h4 class="mt-1 border-bottom">案件管理システム</h4>
+    <a href="{% url 'cms:anken_add' %}" >案件追加</a>
+
+    <form class="form-signin" action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ログイン</button>
+    </form>
+
+</div>
+{% endblock content %}
+
+-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheet_folder/style2.css">
+    <title>サンプル</title>
+</head>
+<body>
+    <h1>サンプルコード</h1>
+    <p>HTMLファイルにCSSを読み込んでみましょう</p>
+</body>
+</html>

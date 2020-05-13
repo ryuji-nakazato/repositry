@@ -1,0 +1,22 @@
+.origin_card_name {
+	font-size: 15px;
+}
+
+table2 thead tr {
+	background:#353535;
+	height: 30px; 
+}
+table2 thead th {
+	border-right: 1px solid #ccc;
+	color: #b2c831;
+	font-size: 12px; 
+}
+table2 thead th:last-of-type { border-right: none; }
+table2 tbody {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #bbb;
+}
+table2 tr.odd { background-color: #fff; }
+table2 tr.even { background-color: #f6f6f6; }
+table2 td { padding: 8px 10px; border-right: 1px solid #ccc; }
+table2 tbody tr:hover { background-color: #ddd; }

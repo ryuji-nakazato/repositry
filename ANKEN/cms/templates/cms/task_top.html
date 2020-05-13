@@ -1,0 +1,123 @@
+{% extends "cms/base_top.html" %}
+
+{% block title %}Task Top{% endblock title %}
+
+{% block content %}
+
+
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">タスク一覧</h1>
+            <a href="#" class="btn btn-primary btn-sm my-3 origin-color">タスク追加</a>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">タスク一覧</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box プロジェクト-->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>抽出１</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="{% url 'cms:anken_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box タスク-->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>抽出２</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44</h3>
+
+                <p>抽出３</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>抽出４</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <!--<section class="connectedSortable">-->
+            <!-- Custom tabs (Charts with tabs)-->
+            <!--<div class="card-deck">-->
+             {% for task in tasks %}
+              <div class="card" style="width: 18rem; margin: 10px;">
+                <div class="card-header bg-success">
+                  <h3 class="card-title origin_card_name">{{ task.anken }}</h3>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <h4 class="m-0 text-dark">{{ task.task }}</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">期限：{{ task.kigen }}</li>
+                </ul>
+                <a href="#" class="card-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div><!-- /.card-body -->
+              {% endfor %}
+            <!--</div>-->
+            <!-- /.card -->
+          </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+  

@@ -1,0 +1,26 @@
+{% extends "cms/base_top.html" %}
+{% load bootstrap4 %}
+
+
+{% block title %}タスク編集{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h4 class="mt-4 mb-5 border-bottom">タスク編集</h4>
+    {% if anken_id %}
+    <form action="{% url 'cms:anken_mod' anken_id=anken_id %}" method="post">
+    {% else %}
+    <form action="{% url 'cms:anken_add' %}" method="post">
+    {% endif %}
+      {% csrf_token %}
+      {% bootstrap_form form layout='horizontal' %}
+      <div class="form-group row">
+        <div class="offset-md-3 col-md-9">
+          <button type="submit" class="btn btn-primary">登録</button>
+        </div>
+      </div>
+    </form>
+    <a href="{% url 'cms:anken_list' %}" class="btn btn-secondary btn-sm">戻る</a>
+    </form>
+</div>
+{% endblock content %}
