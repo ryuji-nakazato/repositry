@@ -25,8 +25,12 @@ SECRET_KEY = '72n@k6+655r4l%ep6yd-qtd#6r8_b^ohza@i5#)ez-10mwnfte'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    import django_heroku  # 追加
+    django_heroku.settings(locals())  # 追加
 
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application definition
 
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #追加
 ]
 
 ROOT_URLCONF = 'anken.urls'
@@ -141,3 +146,6 @@ NUMBER_GROUPING = 3
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/cms/top'
 LOGOUT_REDIRECT_URL = 'login'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

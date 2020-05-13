@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi --log-file -
+web: gunicorn anken.wsgi --log-file -pip freeze > requirements.txt
