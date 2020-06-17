@@ -8,6 +8,7 @@ from datetime import date, datetime
 from django.views import generic
 # Create your views here.
 
+
 def top(request):
     return render(request,
                   'cms/top.html')

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url  #heroku用に追加
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,17 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '72n@k6+655r4l%ep6yd-qtd#6r8_b^ohza@i5#)ez-10mwnfte'
+# SECRET_KEY = '72n@k6+655r4l%ep6yd-qtd#6r8_b^ohza@i5#)ez-10mwnfte'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
-    import django_heroku  # 追加
-    django_heroku.settings(locals())  # 追加
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application definition
 
@@ -49,16 +46,19 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #追加
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', #追加
 ]
 
 ROOT_URLCONF = 'anken.urls'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
@@ -88,14 +88,27 @@ WSGI_APPLICATION = 'anken.wsgi.application'
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'ankendb',
+#        'USER': 'pguser',
+#        'PASSWORD': 'P@ssw0rd',
+#        'HOST': 'localhost',
+#        'PORT': 5432,
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ankendb',
-        'USER': 'pguser',
-        'PASSWORD': 'P@ssw0rd',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'NAME': 'name',
+        'USER': 'user',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -147,5 +160,23 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/cms/top'
 LOGOUT_REDIRECT_URL = 'login'
 
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, 'static')
+#)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+#追加
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    import django_heroku  # 追加
+    django_heroku.settings(locals())  # 追加
+
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
